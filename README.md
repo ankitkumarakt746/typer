@@ -18,4 +18,4 @@ If you select the "START TEST" menu you'll be directed to Test menu where you ma
   ![Paragraph Test](https://github.com/ankitkumarakt746/typer/blob/master/README%20resources/Paragraph_Test.gif)  
   <br><br><br>
 3. CUSTOM TEST  
-  This feature is in progress. Comming soon: <del>You'll be given a paragraph/sentence based on your custom character length, say 150 characters, etc. There is a lower and upper bound for minimum and maximum character length and you must specify within this range.</del>
+  You'll be given a paragraph/sentence based on your custom character length, say 150 characters, etc. There is a lower and upper bound for minimum and maximum character length and you must specify your custom length within this range.
