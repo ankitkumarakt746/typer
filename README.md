@@ -1,4 +1,4 @@
-# typingtest
+# Typer
 This is a CLI based application that can perform typing speed tests.  
 Upon execution, in the Home menu you'll find two options i.e, "START TEST" and "QUIT".
 If you select the "START TEST" menu you'll be directed to Test menu where you may select from the many types of options provided;  
