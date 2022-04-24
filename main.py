@@ -19,13 +19,11 @@ def generate_text(stdscr, length):
         time.sleep(2)
         sys.exit()
 
-    if length == 40:
-        return content[random.randint(2, 234)]
-    elif length == 150:
-        txt = ""
-        for i in range(6):
-            txt += content[random.randint(2, 234)] + " "
-        return txt[:-1]
+    txt = ""
+    while len(txt)<length:
+        txt += content[random.randint(2, 233)] + " "
+
+    return txt[:-1]
 
 
 def display_text(window, window_height, window_width, target_text, curr_text, speed):
@@ -91,7 +89,6 @@ def start_test(stdscr, length):
 
         try:
             key = stdscr.getkey()
-            stdscr.refresh()
         except:
             continue
 
@@ -116,6 +113,68 @@ def start_test(stdscr, length):
     window.erase()
     window.refresh()
 
+def display_length(window, curr_text, window_width, rightSpace):
+    msg = "".join(curr_text)
+    window.addstr(0, window_width-rightSpace-4, 3*" ")
+    window.addstr(0, window_width-rightSpace-len(msg)-1, msg)
+    window.refresh()
+
+def custom_test(stdscr):
+    window_width = cols//3
+    window_height = 1
+    window = curses.newwin(window_height, window_width, lines//2, cols//3)
+
+    msg = "Enter custom length: "
+    window.addstr(0, 0, msg)
+    msg = " characters"
+    rightSpace = len(msg)
+    window.addstr(0, window_width-rightSpace-1, msg)
+    window.refresh()
+
+    msg = "Press Enter key to confirm or Esc key to go back."
+    spaces = len(msg)
+    stdscr.addstr(lines-2, (cols-spaces)//2, msg)
+    stdscr.refresh()
+    
+    curr_text = []
+    while True:
+        display_length(window, curr_text, window_width, rightSpace)
+        try:
+            key = stdscr.getkey()
+            if ord(key) == 10:      #Pressed Enter key
+                if 20 <= int("".join(curr_text)) <= 600:
+                    window.erase()
+                    window.refresh()
+                    stdscr.addstr(lines-2, (cols-spaces)//2, spaces*" ")
+                    stdscr.refresh()
+                    stdscr.nodelay(False)
+                    start_test(stdscr, length=int("".join(curr_text)))
+                    break
+                else:
+                    msg = "Character length must lie between 20 and 600!"
+                    stdscr.addstr((lines//2)+2, (cols-spaces)//2, msg, red)
+                    stdscr.refresh()
+                    time.sleep(2)
+                    stdscr.addstr((lines//2)+2, (cols-spaces)//2, len(msg)*" ", red)
+                    stdscr.refresh()
+            elif ord(key) == 27:    #Pressed Esc key
+                break
+        except:
+            continue
+        if key in ("KEY_BACKSPACE", '\b', "\x7f"):
+            if len(curr_text) > 0:
+                curr_text.pop()
+        elif key in ('0', '1', '2', '3', '5', '6', '7', '8', '9') and len(curr_text) < 3:
+            curr_text.append(key)
+
+        window.refresh()
+
+    stdscr.nodelay(False)
+    window.erase()
+    window.refresh()
+    stdscr.addstr(lines-2, (cols-spaces)//2, spaces*" ")
+    stdscr.refresh()
+
 
 def navigate_test_menu(stdscr, menuItems, widestItem, menuWindow):
     curr = 0
@@ -139,16 +198,10 @@ def navigate_test_menu(stdscr, menuItems, widestItem, menuWindow):
                 start_test(stdscr, length=40)
                 display_menu(menuItems, widestItem, menuWindow, curr)
             elif menuItems[curr] == "PARAGRAPH TEST":
-                start_test(stdscr, length=150)
+                start_test(stdscr, length=350)
                 display_menu(menuItems, widestItem, menuWindow, curr)
             elif menuItems[curr] == "CUSTOM TEST":
-                #Ask user for custom length
-                '''msg = "Comming Soon!"
-                stdscr.addstr(lines//2, (cols-len(msg))//2, msg)
-                stdscr.refresh()
-                time.sleep(1)
-                stdscr.addstr(lines//2, cols-len(msg)//2, len(msg)*" ")
-                stdscr.refresh()'''
+                custom_test(stdscr)
                 display_menu(menuItems, widestItem, menuWindow, curr)
                 pass
             elif menuItems[curr] == "BACK":
