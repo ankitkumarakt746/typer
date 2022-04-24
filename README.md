@@ -5,7 +5,7 @@ If you select the "START TEST" menu you'll be directed to Test menu where you ma
   
 1. QUICK TEST  
   You'll be provided with a single sentence to complete the test. 
-  
+  ![Uploading Quick_Test.gif…]()
   
 2. PARAGRAPH TEST  
   You'll be provided with a paragragh ranging betwwen 3-5 lines.
