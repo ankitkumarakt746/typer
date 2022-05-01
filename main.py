@@ -164,7 +164,7 @@ def custom_test(stdscr):
         if key in ("KEY_BACKSPACE", '\b', "\x7f"):
             if len(curr_text) > 0:
                 curr_text.pop()
-        elif key in ('0', '1', '2', '3', '5', '6', '7', '8', '9') and len(curr_text) < 3:
+        elif key in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9') and len(curr_text) < 3:
             curr_text.append(key)
 
         window.refresh()
