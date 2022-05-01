@@ -120,7 +120,7 @@ def display_length(window, curr_text, window_width, rightSpace):
     window.refresh()
 
 def custom_test(stdscr):
-    window_width = cols//3
+    window_width = (2*cols)//5
     window_height = 1
     window = curses.newwin(window_height, window_width, lines//2, cols//3)
 
